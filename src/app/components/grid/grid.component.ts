@@ -34,6 +34,7 @@ export class GridComponent implements OnInit {
     this.cols = x;
     this.rows = y;
     this.vacuum = vacuum;
+    this.instructions = 'DADADADAA';
   }
 
   executeInstructions(): void {

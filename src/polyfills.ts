@@ -22,11 +22,11 @@
 // import 'classlist.js';  // Run `npm install --save classlist.js`.
 
 /**
- * Web Animations `@angular/platform-browser/animations`
+ * Web Animations `@angular/platform-browser/shared`
  * Only required if AnimationBuilder is used within the application and using IE/Edge or Safari.
  * Standard animation support in Angular DOES NOT require any polyfills (as of Angular 6.0).
  */
-// import 'web-animations-js';  // Run `npm install --save web-animations-js`.
+// import 'web-shared-js';  // Run `npm install --save web-shared-js`.
 
 /**
  * By default, zone.js will patch all possible macroTask and DomEvents

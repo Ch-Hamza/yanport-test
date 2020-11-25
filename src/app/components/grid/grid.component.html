@@ -1,0 +1,72 @@
+<div class="row justify-content-around mt-5">
+  <form #gridForm="ngForm" class="col-lg-3 col-md-10">
+    <div class="custom-border">
+      <div class="form-group row">
+        <label for="rows" class="col-sm-4 col-form-label">Grid rows</label>
+        <div class="col-sm-8">
+          <input type="number" min="1" id="rows" name="rows" [(ngModel)]="rows" [disabled]="!editEnabled" placeholder="Grid rows" class="form-control">
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="cols" class="col-sm-4 col-form-label">Grid cols</label>
+        <div class="col-sm-8">
+          <input type="number" min="1" id="cols" name="cols" [(ngModel)]="cols" [disabled]="!editEnabled" placeholder="Grid cols" class="form-control">
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="vacuum_x" class="col-sm-4 col-form-label">Vacuum X</label>
+        <div class="col-sm-8">
+          <input type="number" min="1" id="vacuum_x" name="vacuum_x" [(ngModel)]="vacuum.x" [disabled]="!editEnabled" placeholder="Vacuum X" class="form-control">
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="vacuum_y" class="col-sm-4 col-form-label">Vacuum Y</label>
+        <div class="col-sm-8">
+          <input type="number" min="1" id="vacuum_y" name="vacuum_y" [(ngModel)]="vacuum.y" [disabled]="!editEnabled" placeholder="Vacuum Y" class="form-control">
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="vacuum_y" class="col-sm-4 col-form-label">Orientation</label>
+        <div class="col-sm-8">
+          <select name="vacuum_orientation" [(ngModel)]="vacuum.orientation" [disabled]="!editEnabled" class="form-control">
+            <option value="N" selected>North</option>
+            <option value="E">East</option>
+            <option value="S">South</option>
+            <option value="W">West</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="instructions" class="col-sm-4 col-form-label">Instructions</label>
+        <div class="col-sm-8">
+          <input type="text" id="instructions" name="instructions" [(ngModel)]="instructions" [disabled]="!editEnabled" placeholder="Instructions" class="form-control">
+        </div>
+      </div>
+      <div class="form-group row justify-content-center mt-4">
+        <div class="col-sm-8">
+          <input type="button" class="btn bg-dark-blue form-control" (click)="executeInstructions()" [disabled]="!editEnabled" value="Execute">
+        </div>
+      </div>
+    </div>
+    <div class="row justify-content-center mt-5">
+      <code>vacuum: {{vacuum | json}}</code>
+    </div>
+  </form>
+  <div class="col-lg-8 col-md-10 ">
+    <div class="row justify-content-center align-items-center">
+      <div class="grid table-responsive">
+        <table class="table">
+          <tr *ngFor="let row of [].constructor(rows); let i = index" class="text-center align-middle">
+            <th class="bg-dark-blue">{{rows - i}}</th>
+            <td *ngFor="let col of [].constructor(cols); let j = index;" class="bg-azure">
+              <div *ngIf="vacuum.x === j+1 && vacuum.y === rows - i" [@move] class="rotate" [ngClass]="vacuum.orientation">&#x2B9D;</div>
+            </td>
+          </tr>
+          <tr class="text-center align-middle">
+            <th class="bg-dark-blue" *ngFor="let col of [].constructor(cols + 1); let i = index;">{{i}}</th>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

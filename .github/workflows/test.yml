@@ -14,7 +14,7 @@ jobs:
 
       - name: Parse node version
         run: |
-          echo "NODE_VERSION=$(cat package.json | grep "@types/node" | grep -Po '\d+.\d+.\d+')" >> $GITHUB_ENV
+          echo "NODE_VERSION=$(cat package.json | grep '@types/node' | grep -Po '\d+.\d+.\d+')" >> $GITHUB_ENV
           echo $NODE_VERSION
 
       - name: Node $NODE_VERSION

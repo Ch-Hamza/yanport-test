@@ -1,0 +1,36 @@
+name: Run build
+on:
+  push:
+    tags:
+      - '*'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Start timestamp
+        run: echo "TIMESTAMP=$(date +%s)" >> $GITHUB_ENV
+
+      - uses: actions/checkout@v2
+
+      - name: Parse node version
+        run: |
+          echo "NODE_VERSION=$(cat package.json | grep '@types/node' | grep -Po '\d+.\d+.\d+')" >> $GITHUB_ENV
+          echo $NODE_VERSION
+
+      - name: Install Node ${{ env.NODE_VERSION }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: Install dependencies and build project
+        run: |
+          npm ci
+          npm run build
+
+      - name: Push build to releases
+        uses: ncipollo/release-action@v1
+        with:
+          artifacts: "dist/*"
+          token: ${{ secrets.GITHUB_TOKEN }}

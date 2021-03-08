@@ -5,17 +5,22 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [12.x]
 
     steps:
-      - uses: actions/checkout@v1
+      - name: Start timestamp
+        run: echo "TIMESTAMP=$(date +%s)" >> $GITHUB_ENV
 
-      - name: Node ${{ matrix.node-version }}
+      - uses: actions/checkout@v2
+
+      - name: Parse node version
+        run: |
+          echo "NODE_VERSION=$(cat package.json | grep "@types/node" | grep -Po '\d+.\d+.\d+')" >> $GITHUB_ENV
+          echo $NODE_VERSION
+
+      - name: Node $NODE_VERSION
         uses: actions/setup-node@v1
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: $NODE_VERSION
 
       - name: npm install and npm run test
         run: |

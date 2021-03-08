@@ -1,4 +1,4 @@
-name: Test
+name: Run test suite
 on:
   push:
 
@@ -13,11 +13,9 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: Parse node version
-        run: |
-          echo "NODE_VERSION=$(cat package.json | grep '@types/node' | grep -Po '\d+.\d+.\d+')" >> $GITHUB_ENV
-          echo $NODE_VERSION
+        run: echo "NODE_VERSION=$(cat package.json | grep '@types/node' | grep -Po '\d+.\d+.\d+')" >> $GITHUB_ENV
 
-      - name: Node $NODE_VERSION
+      - name: Node ${{ env.NODE_VERSION }}
         uses: actions/setup-node@v1
         with:
           node-version: $NODE_VERSION

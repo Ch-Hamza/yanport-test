@@ -1,4 +1,3 @@
-name: Run build
 on:
   push:
     tags:

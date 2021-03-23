@@ -10,6 +10,7 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
+    - run: echo "test"
     - name: chekout tag
       uses: actions/checkout@v2
       with: refs/tags/${{ github.event.inputs.tag_name }}

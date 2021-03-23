@@ -14,7 +14,8 @@ jobs:
     steps:
     - name: chekout tag
       uses: actions/checkout@v2
-      with: refs/tags/${{ github.event.inputs.tag_name }}
+      with: 
+        ref: refs/tags/${{ github.event.inputs.tag_name }}
     
     - name: delete source code files
       run: ls -la

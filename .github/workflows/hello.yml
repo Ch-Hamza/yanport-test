@@ -1,14 +1,20 @@
+name: Manually triggered workflow
 on:
-  push:
-    tags:
-      - '*'
+  workflow_dispatch:
+    inputs:
+      name:
+        description: 'Person to greet'
+        required: true
+        default: 'Mona the Octocat'
+      home:
+        description: 'location'
+        required: false
+        default: 'The Octoverse'
 
 jobs:
-  build:
+  say_hello:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Start timestamp
-        run: echo "TIMESTAMP=$(date +%s)" >> $GITHUB_ENV
-
-      - uses: actions/checkout@v2
+    - run: |
+        echo "Hello ${{ github.event.inputs.name }}!"
+        echo "- in ${{ github.event.inputs.home }}!"

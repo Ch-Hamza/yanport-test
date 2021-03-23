@@ -12,4 +12,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    - name: chekout tag
+      uses: actions/checkout@v2
+      with: refs/tags/${{ github.event.inputs.tag_name }}
+    
+    - name: delete source code files
+      run: ls -la
+      
     - run: echo "Hello ${{ github.event.inputs.tag_name }}!"

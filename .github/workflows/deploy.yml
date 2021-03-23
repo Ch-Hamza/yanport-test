@@ -10,14 +10,35 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-
     steps:
-    - name: chekout tag
+    - name: Chekout tag
       uses: actions/checkout@v2
       with: 
         ref: refs/tags/${{ github.event.inputs.tag_name }}
+
+    - name: Parse node version
+      run: |
+        echo "NODE_VERSION=$(cat package.json | grep '@types/node' | grep -Po '\d+.\d+.\d+')" >> $GITHUB_ENV
+        echo $NODE_VERSION
+
+    - name: Install Node ${{ env.NODE_VERSION }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ env.NODE_VERSION }}
+
+    - name: Install dependencies and build project
+      run: |
+        npm ci
+        npm run build
     
-    - name: delete source code files
-      run: ls -la
-      
-    - run: echo "Hello ${{ github.event.inputs.tag_name }}!"
+    - name: Delete source code files from release
+      run: ls -la dist
+    
+    - name: Set up Cloud SDK
+      uses: google-github-actions/setup-gcloud@master
+      with:
+        project_id: ${{ secrets.GCP_PROJECT_ID }}
+        service_account_key: ${{ secrets.GCP_SA_KEY }}
+        export_default_credentials: true
+        
+    - name: Deploy to Google Cloud

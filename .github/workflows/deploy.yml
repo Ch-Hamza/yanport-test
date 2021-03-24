@@ -11,6 +11,10 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
+    - name: Start timestamp
+      run: echo "TIMESTAMP=$(date +%s)" >> $GITHUB_ENV
+      
+    - run: echo "${{ secrets.SLACK_TOKEN }} ${{ github.event.inputs.tag_name }} $TIMESTAMP ${{ job.status }} $GITHUB_RUN_ID ${{ github.event.client_payload.actor }}"
     - name: Chekout tag
       uses: actions/checkout@v2
       with: 

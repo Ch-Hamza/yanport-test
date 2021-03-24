@@ -11,7 +11,7 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-    - run: echo "https://github.com/Ch-Hamza/yanport-test/runs/$GITHUB_RUN_ID"
+    - run: echo "https://github.com/Ch-Hamza/yanport-test/actions/runs/$GITHUB_RUN_ID"
     - name: Start timestamp
       run: echo "TIMESTAMP=$(date +%s)" >> $GITHUB_ENV
       

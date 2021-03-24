@@ -11,11 +11,11 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-    - run: echo $GITHUB_ACTOR
+    - run: echo "https://github.com/Ch-Hamza/yanport-test/runs/$GITHUB_RUN_ID"
     - name: Start timestamp
       run: echo "TIMESTAMP=$(date +%s)" >> $GITHUB_ENV
       
-    - run: echo "${{ secrets.SLACK_TOKEN }} ${{ github.event.inputs.tag_name }} ${{ env.TIMESTAMP }} ${{ job.status }} $GITHUB_ACTOR $GITHUB_RUN_ID"
+    - run: echo "${{ secrets.SLACK_TOKEN }} ${{ github.event.inputs.tag_name }} ${{ env.TIMESTAMP }} ${{ job.status }} $GITHUB_RUN_ID $GITHUB_ACTOR"
     - name: Chekout tag
       uses: actions/checkout@v2
       with: 

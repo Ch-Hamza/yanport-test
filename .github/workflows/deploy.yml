@@ -14,7 +14,7 @@ jobs:
     - name: Start timestamp
       run: echo "TIMESTAMP=$(date +%s)" >> $GITHUB_ENV
       
-    - run: echo "${{ secrets.SLACK_TOKEN }} ${{ github.event.inputs.tag_name }} ${{ env.TIMESTAMP }} ${{ job.status }} ${{ github.run.id }} ${{ github.event.client_payload.actor }}"
+    - run: echo "${{ secrets.SLACK_TOKEN }} ${{ github.event.inputs.tag_name }} ${{ env.TIMESTAMP }} ${{ job.status }} ${{ env.GITHUB_ACTOR }} ${{ env.GITHUB_RUN_ID }}"
     - name: Chekout tag
       uses: actions/checkout@v2
       with: 

@@ -15,7 +15,7 @@ jobs:
     - name: Start timestamp
       run: |
         echo "TIMESTAMP=$(date +%s)" >> $GITHUB_ENV
-        echo "GCP_VERSION=$(echo ${{ github.event.inputs.tag_name }} | sed 's/\./-/')" >> $GITHUB_ENV
+        echo "GCP_VERSION=$(echo ${{ github.event.inputs.tag_name }} | sed 's/\./-/g')" >> $GITHUB_ENV
       
     - run: echo "${{ secrets.SLACK_TOKEN }} ${{ github.event.inputs.tag_name }} ${{ env.TIMESTAMP }} ${{ job.status }} $GITHUB_RUN_ID $GITHUB_ACTOR"
     - name: Chekout tag
